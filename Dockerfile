@@ -42,4 +42,5 @@ RUN mkdir -p /opt/julia-DIVAnd
 RUN mv sysimg_DIVAnd.so DIVAnd_precompile_script.jl make_sysimg.sh  DIVAnd_trace_compile.jl  /opt/julia-DIVAnd
 RUN rm -f test.xml Water_body_Salinity.3Danl.nc Water_body_Salinity.4Danl.cdi_import_errors_test.csv Water_body_Salinity.4Danl.nc Water_body_Salinity2.4Danl.nc
 
-CMD ["bash", "/usr/local/bin/julia --sysimage=/opt/julia-DIVAnd/sysimg_DIVAnd.so"]
+#ENTRYPOINT ["top", "-b"]
+ENTRYPOINT ["/usr/local/julia/bin/julia","--sysimage=/opt/julia-DIVAnd/sysimg_DIVAnd.so"]
