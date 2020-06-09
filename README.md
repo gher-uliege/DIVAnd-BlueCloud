@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/gher-ulg/DIVAnd-BlueCloud.svg?branch=master)](https://travis-ci.org/gher-ulg/DIVAnd-BlueCloud)
 
 ## Precompiled DIVAnd with `PackageCompiler`
 
