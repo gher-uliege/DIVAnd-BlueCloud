@@ -1,0 +1,19 @@
+sudo: required
+language: bash
+services:
+  - docker
+os:
+  - linux
+notifications:
+  email: false
+before_install:
+  - sudo docker build -t abarth/divand-bluecloud .
+
+script:
+  - docker run abarth/divand-bluecloud --eval 'import Pkg; Pkg.test("DIVAnd")'
+
+after_success:
+  - if [ "$TRAVIS_BRANCH" == master ]; then
+       echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin;
+       docker push abarth/divand-bluecloud;
+    fi
