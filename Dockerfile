@@ -31,6 +31,8 @@ RUN julia --eval 'using Pkg; pkg"add https://github.com/gher-ulg/OceanPlot.jl#ma
 RUN julia --eval 'using Pkg; pkg"add https://github.com/gher-ulg/DIVAnd.jl#master"'
 RUN julia --eval 'using Pkg; pkg"add Missings"'
 
+RUN apt-get install -y gcc
+
 # Pre-compiled image with PackageCompiler
 RUN julia --eval 'using Pkg; pkg"add PackageCompiler"'
 ADD DIVAnd_precompile_script.jl .
