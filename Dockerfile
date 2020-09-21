@@ -24,6 +24,7 @@ RUN julia --eval 'using Pkg; pkg"add JSON SpecialFunctions Roots"'
 RUN julia --eval 'using Pkg; pkg"add Gumbo AbstractTrees Glob NCDatasets Knet CSV"'
 RUN julia --eval 'using Pkg; pkg"add DataStructures Compat Mustache"'
 RUN julia --eval 'using Pkg; pkg"add HTTP"'
+RUN julia --eval 'using Pkg; pkg"add StableRNGs"'
 
 RUN julia --eval 'using Pkg; pkg"add PhysOcean"'
 #RUN julia --eval 'using Pkg; pkg"dev PhysOcean"'
