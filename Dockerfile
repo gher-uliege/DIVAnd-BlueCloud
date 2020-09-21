@@ -1,7 +1,7 @@
 # build as:
 # sudo docker build  --tag abarth/DIVAnd-BlueCloud:$(date --utc +%Y-%m-%dT%H%M)  --tag abarth/DIVAnd-BlueCloud:latest .
 
-FROM julia:1.4
+FROM julia:1.5
 
 MAINTAINER Alexander Barth <a.barth@ulg.ac.be>
 
