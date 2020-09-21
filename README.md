@@ -13,7 +13,7 @@ docker pull abarth/divand-bluecloud:latest
 To execute a script `script.jl` inside the folder e.g. `~/src/DIVAnd-BlueCloud` on the host use:
 
 ```bash
-docker run -it -v ~/src/DIVAnd-BlueCloud:/data:rw julia:1.5 julia --eval 'include("/data/script.jl")'
+docker run -it -v ~/src/DIVAnd-BlueCloud:/data:rw abarth/divand-bluecloud:latest julia --eval 'include("/data/script.jl")'
 ```
 
 All results written to `/data` in the docker container will be available in `~/src/DIVAnd-BlueCloud` on the host.
@@ -23,11 +23,12 @@ All results written to `/data` in the docker container will be available in `~/s
 To execute a Jupyter notebook `myfile.ipynb` (in non-interactively, i.e. in batch-mode) use:
 
 ```bash
-docker run -it -v ~/src/DIVAnd-BlueCloud:/data:rw julia:1.5 julia --eval 'using NBInclude; @nbinclude("myfile.ipynb")'
+docker run -it -v ~/src/DIVAnd-BlueCloud:/data:rw abarth/divand-bluecloud:latest julia --eval 'using NBInclude; @nbinclude("myfile.ipynb")'
 ```
 
 
-## Precompiled DIVAnd with `PackageCompiler`
+# Precompiled DIVAnd with `PackageCompiler`
+
 
 
 Load-time of DIVAnd and simple analysis without precompiled image:
@@ -43,7 +44,7 @@ julia> @time include(joinpath(dirname(pathof(DIVAnd)),"..","test","test_product.
 188.275971 seconds (754.34 M allocations: 49.429 GiB, 7.16% gc time)
 ```
 
-When you first load and run a package in a session, Julia needs to compile it first. This creates some overhead on first use with can be removed by using a precompiled image:
+When you first load and run a package in a session, Julia needs to compile it first. This creates some overhead on first use with can be removed by using a precompiled image.
 
 
 ```julia
@@ -55,3 +56,5 @@ julia> @time include(joinpath(dirname(pathof(DIVAnd)),"..","test","test_product.
 [ Info: download observations /home/jovyan/.julia/packages/DIVAnd/gsgEt/test/../../DIVAnd-example-data/Provencal/WOD-Salinity.nc
  80.839016 seconds (472.02 M allocations: 35.777 GiB, 11.47% gc time)
 ```
+
+The load time of DIVAnd is reduces from 6 s to 0.0005 s and a make a sample analysis is reduced from 188 s to 80 s.
