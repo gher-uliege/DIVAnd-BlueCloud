@@ -1,5 +1,5 @@
 # build as:
-# sudo docker build  --tag abarth/DIVAnd-BlueCloud:$(date --utc +%Y-%m-%dT%H%M)  --tag abarth/DIVAnd-BlueCloud:latest .
+# docker build  --tag abarth/divand-bluecloud:$(date --utc +%Y-%m-%dT%H%M)  --tag abarth/divand-bluecloud:latest .
 
 FROM julia:1.5
 
