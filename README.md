@@ -1,5 +1,32 @@
 [![Build Status](https://travis-ci.org/gher-ulg/DIVAnd-BlueCloud.svg?branch=master)](https://travis-ci.org/gher-ulg/DIVAnd-BlueCloud)
 
+# Docker image
+
+The image is available from the [Docker hub](https://hub.docker.com/repository/docker/abarth/divand-bluecloud):
+
+```julia
+docker pull abarth/divand-bluecloud:latest
+```
+
+## Run a script
+
+To execute a script `script.jl` inside the folder e.g. `~/src/DIVAnd-BlueCloud` on the host use:
+
+```bash
+docker run -it -v ~/src/DIVAnd-BlueCloud:/data:rw julia:1.5 julia --eval 'include("/data/script.jl")'
+```
+
+All results written to `/data` in the docker container will be available in `~/src/DIVAnd-BlueCloud` on the host.
+
+## Run a notebook
+
+To execute a Jupyter notebook `myfile.ipynb` (in non-interactively, i.e. in batch-mode) use:
+
+```bash
+docker run -it -v ~/src/DIVAnd-BlueCloud:/data:rw julia:1.5 julia --eval 'using NBInclude; @nbinclude("myfile.ipynb")'
+```
+
+
 ## Precompiled DIVAnd with `PackageCompiler`
 
 
