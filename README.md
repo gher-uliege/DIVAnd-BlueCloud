@@ -13,17 +13,17 @@ docker pull abarth/divand-bluecloud:latest
 To execute a script `script.jl` inside the folder e.g. `~/src/DIVAnd-BlueCloud` on the host use:
 
 ```bash
-docker run -it -v ~/src/DIVAnd-BlueCloud:/data:rw abarth/divand-bluecloud:latest julia --eval 'include("/data/script.jl")'
+docker run  -v ~/src/DIVAnd-BlueCloud:/data:rw abarth/divand-bluecloud:latest /data/script.jl
 ```
 
 All results written to `/data` in the docker container will be available in `~/src/DIVAnd-BlueCloud` on the host.
 
 ## Run a notebook
 
-To execute a Jupyter notebook `myfile.ipynb` (in non-interactively, i.e. in batch-mode) use:
+To execute a Jupyter notebook `notebook.ipynb` (in non-interactively, i.e. in batch-mode) inside the folder e.g. `~/src/DIVAnd-BlueCloud` on the host use:
 
 ```bash
-docker run -it -v ~/src/DIVAnd-BlueCloud:/data:rw abarth/divand-bluecloud:latest julia --eval 'using NBInclude; @nbinclude("myfile.ipynb")'
+docker run -v ~/src/DIVAnd-BlueCloud:/data:rw abarth/divand-bluecloud:latest --eval 'using NBInclude; @nbinclude("/data/notebook.ipynb")'
 ```
 
 
