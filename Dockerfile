@@ -29,7 +29,6 @@ RUN julia --eval 'using Pkg; pkg"add PhysOcean"'
 #RUN julia --eval 'using Pkg; pkg"dev PhysOcean"'
 RUN julia --eval 'using Pkg; pkg"add https://github.com/gher-ulg/OceanPlot.jl#master"'
 RUN julia --eval 'using Pkg; pkg"add https://github.com/gher-ulg/DIVAnd.jl#master"'
-RUN julia --eval 'using Pkg; pkg"add "'
 
 
 # RUN apt-get install -y gcc
@@ -44,12 +43,17 @@ RUN julia --eval 'using Pkg; pkg"add "'
 # RUN rm -f test.xml Water_body_Salinity.3Danl.nc Water_body_Salinity.4Danl.cdi_import_errors_test.csv Water_body_Salinity.4Danl.nc Water_body_Salinity2.4Danl.nc
 
 
+RUN apt-get install -y python3-pip
 
 RUN pip3 install requests
-ADD setup.py
-ADD src
-# WORKDIR /sortapp
-# COPY src/sortapp /sortapp
+
+
+WORKDIR /sortapp
+ADD setup.py .
+ADD src src
+ADD README.md .
+ADD LICENSE.md .
+
 
 RUN python3 setup.py install
 
