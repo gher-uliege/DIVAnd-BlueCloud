@@ -23,31 +23,35 @@ RUN julia --eval 'using Pkg; pkg"add PyPlot Interpolations MAT"'
 RUN julia --eval 'using Pkg; pkg"add JSON SpecialFunctions Roots"'
 RUN julia --eval 'using Pkg; pkg"add Gumbo AbstractTrees Glob NCDatasets Knet CSV"'
 RUN julia --eval 'using Pkg; pkg"add DataStructures Compat Mustache"'
-RUN julia --eval 'using Pkg; pkg"add HTTP"'
-RUN julia --eval 'using Pkg; pkg"add StableRNGs"'
+RUN julia --eval 'using Pkg; pkg"add StableRNGs Missings NBInclude HTTP"'
 
 RUN julia --eval 'using Pkg; pkg"add PhysOcean"'
 #RUN julia --eval 'using Pkg; pkg"dev PhysOcean"'
 RUN julia --eval 'using Pkg; pkg"add https://github.com/gher-ulg/OceanPlot.jl#master"'
 RUN julia --eval 'using Pkg; pkg"add https://github.com/gher-ulg/DIVAnd.jl#master"'
-RUN julia --eval 'using Pkg; pkg"add Missings"'
+RUN julia --eval 'using Pkg; pkg"add "'
 
-RUN apt-get install -y gcc
 
-# Pre-compiled image with PackageCompiler
-RUN julia --eval 'using Pkg; pkg"add PackageCompiler"'
-ADD DIVAnd_precompile_script.jl .
-ADD make_sysimg.sh .
-RUN ./make_sysimg.sh
-RUN mkdir -p /opt/julia-DIVAnd
-RUN mv sysimg_DIVAnd.so DIVAnd_precompile_script.jl make_sysimg.sh  DIVAnd_trace_compile.jl  /opt/julia-DIVAnd
-RUN rm -f test.xml Water_body_Salinity.3Danl.nc Water_body_Salinity.4Danl.cdi_import_errors_test.csv Water_body_Salinity.4Danl.nc Water_body_Salinity2.4Danl.nc
+# RUN apt-get install -y gcc
 
-RUN julia --eval 'using Pkg; pkg"add NBInclude"'
+# # Pre-compiled image with PackageCompiler
+# RUN julia --eval 'using Pkg; pkg"add PackageCompiler"'
+# ADD DIVAnd_precompile_script.jl .
+# ADD make_sysimg.sh .
+# RUN ./make_sysimg.sh
+# RUN mkdir -p /opt/julia-DIVAnd
+# RUN mv sysimg_DIVAnd.so DIVAnd_precompile_script.jl make_sysimg.sh  DIVAnd_trace_compile.jl  /opt/julia-DIVAnd
+# RUN rm -f test.xml Water_body_Salinity.3Danl.nc Water_body_Salinity.4Danl.cdi_import_errors_test.csv Water_body_Salinity.4Danl.nc Water_body_Salinity2.4Danl.nc
+
 
 
 RUN pip3 install requests
+ADD setup.py
+ADD src
+# WORKDIR /sortapp
+# COPY src/sortapp /sortapp
+
 RUN python3 setup.py install
 
 #ENTRYPOINT ["top", "-b"]
-ENTRYPOINT ["/usr/local/julia/bin/julia","--sysimage=/opt/julia-DIVAnd/sysimg_DIVAnd.so"]
+#ENTRYPOINT ["/usr/local/julia/bin/julia","--sysimage=/opt/julia-DIVAnd/sysimg_DIVAnd.so"]
