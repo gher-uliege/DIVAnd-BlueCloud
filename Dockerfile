@@ -45,5 +45,9 @@ RUN rm -f test.xml Water_body_Salinity.3Danl.nc Water_body_Salinity.4Danl.cdi_im
 
 RUN julia --eval 'using Pkg; pkg"add NBInclude"'
 
+
+RUN pip3 install requests
+RUN python3 setup.py install
+
 #ENTRYPOINT ["top", "-b"]
 ENTRYPOINT ["/usr/local/julia/bin/julia","--sysimage=/opt/julia-DIVAnd/sysimg_DIVAnd.so"]

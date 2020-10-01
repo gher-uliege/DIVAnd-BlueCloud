@@ -1,0 +1,17 @@
+LICENSE.md
+MANIFEST.in
+README.md
+setup.py
+src/sortapp/__init__.py
+src/sortapp/__main__.py
+src/sortapp/issupport.py
+src/sortapp/sortapp.py
+src/sortapp.egg-info/PKG-INFO
+src/sortapp.egg-info/SOURCES.txt
+src/sortapp.egg-info/dependency_links.txt
+src/sortapp.egg-info/entry_points.txt
+src/sortapp.egg-info/top_level.txt
+src/sortapp/storagehub/__init__.py
+src/sortapp/storagehub/storagehubcommand.py
+src/sortapp/storagehub/storagehubcommanditemdownload.py
+src/sortapp/storagehub/storagehubcommanditemupload.py
