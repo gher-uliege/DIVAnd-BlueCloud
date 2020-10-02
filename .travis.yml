@@ -10,7 +10,7 @@ before_install:
   - sudo docker build -t abarth/divand-bluecloud .
 
 script:
-  - docker run -v "$PWD":/data -w /data --rm abarth/divand-bluecloud script.jl
+  - docker run -v "$PWD":/data -w /data --rm abarth/divand-bluecloud julia script.jl
 
 after_success:
   - if [ "$TRAVIS_BRANCH" == master ]; then
