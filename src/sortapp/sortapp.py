@@ -6,6 +6,7 @@
 # Created on 2020/06/12
 #
 import sys
+import os
 from .issupport import ISSupport
 from .storagehub.storagehubcommanditemdownload import StorageHubCommandItemDownload
 from .storagehub.storagehubcommanditemupload import StorageHubCommandItemUpload
@@ -43,19 +44,32 @@ class SortApp:
         if not self.fileItemId:
             raise Exception('Error File Item Id is null')
 
+
+        # create a writable temporary directory
+        workdir = '/tmp/DIVAnd'
+        os.mkdir(workdir)
+        os.chdir(workdir)
+
         cmdItemDownload = StorageHubCommandItemDownload(self.gcubeToken, self.storageHubUrl,
                                                         self.fileItemId, self.destinationFile)
         cmdItemDownload.execute()
 
-        with open('DIVAnd.log', 'w') as f:
-            process = subprocess.Popen(['julia', self.destinationFile], stdout=f)
+        # name of the log file
+        logfile  = 'DIVAnd.log'
+
+        with open(logfile, 'w') as f:
+            # run julia with file downloaded file from StorageHub as argument and redirect stdout
+            # and stderr to the log file
+            process = subprocess.Popen(['julia', self.destinationFile], stdout=f,stderr=f)
 
 
-        outputfile = "foo.zip"
+        # zip all files un current directory including log file
+        outputfile = "output.zip"
         zipf = zipfile.ZipFile(outputfile, 'w', zipfile.ZIP_DEFLATED)
-        zipdir('./', zipf)
+        zipdir(workdir, zipf)
         zipf.close()
 
+        # upload the zipped output file
         cmdItemUpload = StorageHubCommandItemUpload(self.gcubeToken, self.storageHubUrl, self.tempFolderItemId,
                                                     outputfile,outputfile,outputfile)
         cmdItemUpload.execute()
