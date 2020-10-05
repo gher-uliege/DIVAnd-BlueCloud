@@ -11,13 +11,6 @@ from .issupport import ISSupport
 from .storagehub.storagehubcommanditemdownload import StorageHubCommandItemDownload
 from .storagehub.storagehubcommanditemupload import StorageHubCommandItemUpload
 import subprocess
-import zipfile
-
-def zipdir(path, ziph):
-    # ziph is zipfile handle
-    for root, dirs, files in os.walk(path):
-        for file in files:
-            ziph.write(os.path.join(root, file))
 
 
 class SortApp:
@@ -26,7 +19,7 @@ class SortApp:
         self.gcubeToken = sys.argv[1]
         self.fileItemId = sys.argv[2]
         self.tempFolderItemId = sys.argv[3]
-        self.destinationFile = "elements.txt"
+        self.destinationFile = "script.jl"
         self.storageHubUrl = None
 
     def main(self):
@@ -65,20 +58,18 @@ class SortApp:
             # run julia with file downloaded file from StorageHub as argument and redirect stdout
             # and stderr to the log file
             process = subprocess.Popen(['julia', self.destinationFile], stdout=f,stderr=f)
+            p_status = process.wait()
 
-
-        print("Create zip file")
-        # zip all files un current directory including log file
-        outputfile = "output.zip"
-        zipf = zipfile.ZipFile(outputfile, 'w', zipfile.ZIP_DEFLATED)
-        zipdir(workdir, zipf)
-        zipf.close()
+        print("Log file")
+        for line in open(logfile):
+            print(line)
 
         print("Uploading results")
-        # upload the zipped output file
-        cmdItemUpload = StorageHubCommandItemUpload(self.gcubeToken, self.storageHubUrl, self.tempFolderItemId,
-                                                    outputfile,outputfile,outputfile)
-        cmdItemUpload.execute()
+        for filename in os.listdir(workdir):
+            print("Uploading ",filename)
+            if os.path.isfile(os.path.join(workdir, filename)):
+                StorageHubCommandItemUpload(self.gcubeToken, self.storageHubUrl, self.tempFolderItemId,
+                                            filename,os.path.basename(filename),os.path.basename(filename)).execute()
         print("Uploading finished")
 
     def __str__(self):
