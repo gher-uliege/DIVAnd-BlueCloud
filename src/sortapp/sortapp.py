@@ -10,6 +10,8 @@ import os
 from .issupport import ISSupport
 from .storagehub.storagehubcommanditemdownload import StorageHubCommandItemDownload
 from .storagehub.storagehubcommanditemupload import StorageHubCommandItemUpload
+import subprocess
+import zipfile
 
 def zipdir(path, ziph):
     # ziph is zipfile handle
@@ -47,7 +49,8 @@ class SortApp:
 
         # create a writable temporary directory
         workdir = '/tmp/DIVAnd'
-        os.mkdir(workdir)
+        if not os.path.isdir(workdir):
+            os.mkdir(workdir)
         os.chdir(workdir)
 
         cmdItemDownload = StorageHubCommandItemDownload(self.gcubeToken, self.storageHubUrl,
@@ -57,22 +60,26 @@ class SortApp:
         # name of the log file
         logfile  = 'DIVAnd.log'
 
+        print("Run julia")
         with open(logfile, 'w') as f:
             # run julia with file downloaded file from StorageHub as argument and redirect stdout
             # and stderr to the log file
             process = subprocess.Popen(['julia', self.destinationFile], stdout=f,stderr=f)
 
 
+        print("Create zip file")
         # zip all files un current directory including log file
         outputfile = "output.zip"
         zipf = zipfile.ZipFile(outputfile, 'w', zipfile.ZIP_DEFLATED)
         zipdir(workdir, zipf)
         zipf.close()
 
+        print("Uploading results")
         # upload the zipped output file
         cmdItemUpload = StorageHubCommandItemUpload(self.gcubeToken, self.storageHubUrl, self.tempFolderItemId,
                                                     outputfile,outputfile,outputfile)
         cmdItemUpload.execute()
+        print("Uploading finished")
 
     def __str__(self):
         return 'Sort App'
