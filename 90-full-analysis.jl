@@ -65,7 +65,7 @@ gca().set_aspect(aspectratio)
 
 checkobs((obslon,obslat,obsdepth,obstime),obsval,obsid)
 
-bathname = "../data/gebco_30sec_8.nc"
+bathname = "gebco_30sec_8.nc"
 if !isfile(bathname)
     download("https://dox.ulg.ac.be/index.php/s/U0pqyXhcQrXjEUX/download",bathname)
 else
@@ -112,7 +112,6 @@ ax = subplot(1,1,1)
 ax.tick_params("both",labelsize=6)
 pcolor(bx, by, transpose(mask[:,:,1])); 
 gca().set_aspect(aspectratio)
-
 
 
 sel = (obsval .<= 40) .& (obsval .>= 25);
