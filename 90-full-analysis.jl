@@ -223,12 +223,7 @@ if isfile(filename)
     @info "Removing file $filename"
 end
 
-figdir = "./Adriatic/figures/"
-if ~(isdir(figdir))
-    mkdir(figdir)
-else
-    @info("Figure directory already exists")
-end
+figdir = "./"
 
 function plotres(timeindex,sel,fit,erri)
     tmp = copy(fit)
@@ -269,23 +264,4 @@ end
     );
 
 DIVAnd.saveobs(filename,(obslon,obslat,obsdepth,obstime),obsid);
-
-project = "SeaDataCloud";
-project = "EMODNET-chemistry"
-
-cdilist = "./CDI-list-export.zip"
-
-if !isfile(cdilist)
-   download("http://emodnet-chemistry.maris2.nl/download/export.zip", cdilist)
-end
-
-ignore_errors = true
-
-# File name based on the variable (but all spaces are replaced by underscores)
-xmlfilename = "Water_body_$(replace(varname," "=>"_")).4Danl.xml"
-
-# generate a XML file for Sextant catalog
-divadoxml(filename,varname,project,cdilist,xmlfilename,
-          ignore_errors = ignore_errors)
-
 

@@ -15,6 +15,8 @@ RUN apt-get install -y unzip
 RUN apt-get install -y ca-certificates curl
 ###RUN apt-get install -y git
 RUN apt-get install -y python3-matplotlib
+RUN apt-get install -y gcc
+RUN apt-get install -y python3-pip
 
 ENV PYTHON /usr/bin/python3
 
@@ -31,19 +33,17 @@ RUN julia --eval 'using Pkg; pkg"add https://github.com/gher-ulg/OceanPlot.jl#ma
 RUN julia --eval 'using Pkg; pkg"add https://github.com/gher-ulg/DIVAnd.jl#master"'
 
 
-# RUN apt-get install -y gcc
 
-# # Pre-compiled image with PackageCompiler
-# RUN julia --eval 'using Pkg; pkg"add PackageCompiler"'
-# ADD DIVAnd_precompile_script.jl .
-# ADD make_sysimg.sh .
-# RUN ./make_sysimg.sh
-# RUN mkdir -p /opt/julia-DIVAnd
-# RUN mv sysimg_DIVAnd.so DIVAnd_precompile_script.jl make_sysimg.sh  DIVAnd_trace_compile.jl  /opt/julia-DIVAnd
-# RUN rm -f test.xml Water_body_Salinity.3Danl.nc Water_body_Salinity.4Danl.cdi_import_errors_test.csv Water_body_Salinity.4Danl.nc Water_body_Salinity2.4Danl.nc
+# Pre-compiled image with PackageCompiler
+RUN julia --eval 'using Pkg; pkg"add PackageCompiler"'
+ADD DIVAnd_precompile_script.jl .
+ADD make_sysimg.sh .
+RUN ./make_sysimg.sh
+RUN mkdir -p /opt/julia-DIVAnd
+RUN mv DIVAnd_precompile_script.jl make_sysimg.sh  DIVAnd_trace_compile.jl  /opt/julia-DIVAnd
+RUN rm -f test.xml Water_body_Salinity.3Danl.nc Water_body_Salinity.4Danl.cdi_import_errors_test.csv Water_body_Salinity.4Danl.nc Water_body_Salinity2.4Danl.nc
 
 
-RUN apt-get install -y python3-pip
 
 RUN pip3 install requests
 
