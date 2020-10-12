@@ -3,8 +3,8 @@
 #
 # @author: Giancarlo Panichi
 #
-# Created on 2020/06/12 
-# 
+# Created on 2020/06/12
+#
 import setuptools
 
 with open("README.md", "r") as freadme:
@@ -13,9 +13,9 @@ with open("README.md", "r") as freadme:
 with open("LICENSE.md", "r") as flicense:
     license_description = flicense.read()
 
-   
+
 setuptools.setup(
-    name="sortapp", 
+    name="sortapp",
     version="1.0.0",
     author="Giancarlo Panichi",
     author_email="giancarlo.panichi@isti.cnr.it",
@@ -27,7 +27,10 @@ setuptools.setup(
     package_dir={"": "src"},
     packages=setuptools.find_packages(where="src"),
     entry_points={
-        'console_scripts': ['sortapp=sortapp.sortapp:main']
+        'console_scripts': [
+            'sortapp=sortapp.sortapp:main',
+            'DIVAnd=sortapp.sortapp:main',
+        ]
     },
     classifiers=[
         "Programming Language :: Python :: 3",
