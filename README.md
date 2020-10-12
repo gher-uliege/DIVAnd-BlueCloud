@@ -21,3 +21,6 @@ docker pull abarth/divand-bluecloud:latest
      * FileParam: choose the julia script
 
 * Click on `Start Computation`.
+
+* All files in the current working directory of the julia script will be saved and transferred to your workspace (the `DataMiner` folder).
+Do not place the final results in to subfolders as they will not be transferred.
