@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/gher-ulg/DIVAnd-BlueCloud.svg?branch=master)](https://travis-ci.org/gher-ulg/DIVAnd-BlueCloud) [![DOI](https://zenodo.org/badge/271015819.svg)](https://zenodo.org/badge/latestdoi/271015819)
+[![Build Status](https://travis-ci.org/gher-ulg/DIVAnd-BlueCloud.svg?branch=master)](https://travis-ci.org/gher-ulg/DIVAnd-BlueCloud) [![DOI](https://zenodo.org/badge/271015819.svg)](https://zenodo.org/badge/latestdoi/271015819) ![Docker Pulls](https://img.shields.io/docker/pulls/abarth/divand-bluecloud)
 
 
 # Docker image
